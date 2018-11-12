@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title>Solent Air Watch Test Map</title>
+
+    <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
+    <link rel="stylesheet" type ="text/css" href="css/click-points.css"/> 
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/leaflet.awesome-markers.css">
+    <script src="js/leaflet.js"></script>
+    <script src="js/jquery.js"></script>
+    
+</head>
+
+    <body>
+        <h1>
+            Click the map to add points
+        </h1>
+        <p>
+            <div id="map" data-mode="">
+                <input type="hidden" data-map-markers="" value="" name="map-geojson-data" />
+            </div>
+        </p>
+
+        <p>
+            <b>Please note: </b> points submitted without a reason will be automatically deleted and not displayed on our maps.
+        </p> 
+        
+        <div id="container">
+            <div>
+                <input class="btn-good" type="button" value="click to select good points" />
+                <input class="btn-bad" type="button" value="click to select bad points" /> 
+                <input class="btn-done" type="button" value="I'm done - save my points" />
+            </div>
+        </div>
+
+
+        <script src="js/click-points.js"></script>
+        <script src="js/leaflet.awesome-markers.min.js"></script>
+    </body>
