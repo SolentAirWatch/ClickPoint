@@ -6,4 +6,7 @@ Data is collected to show areas of good and bad air pollution so solutions to th
 
 The map is powered by leaflet.js using a PHP backend and a mysql database. 
 
-The Air Watch projects are currently in the process of being documented - please bear with us and please submit pull requiests to improve the software and documentation! 
+The Air Watch projects are currently in the process of being documented.
+
+Please help us by contributing to the project by code review or improving documentation. Submit a pull request no matter how small!
+
