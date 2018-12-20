@@ -11,19 +11,13 @@ var osmUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=
 
 var thisMark = 'good';
 var markCol = 'green';
+
+// initialize the map on the "map" div with a given center and zoom
 var map = L.map('map').setView([50.9165078, -1.4311083], 12).addLayer(osm);
 var reason;
 
-
-console.log(data)
-
-
-// initialize the map on the "map" div with a given center and zoom
-// var map = L.map('map').setView([43.665,7.193], 6);
-
 // attaching function on map click
 map.on('click', onMapClick);
-
 
 // Script for adding marker on map click
 function onMapClick(e) {
@@ -66,9 +60,9 @@ function onPopupOpen() {
 
     var tempMarker = this;
 
-    var tempMarkerGeoJSON = this.toGeoJSON();
+    //var tempMarkerGeoJSON = this.toGeoJSON();
 
-    var lID = tempMarker._leaflet_id; // Getting Leaflet ID of this marker
+    //var lID = tempMarker._leaflet_id; // Getting Leaflet ID of this marker
 
     // To remove marker on click of delete
     $(".marker-delete-button:visible").click(function () {

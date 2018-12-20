@@ -1,0 +1,32 @@
+html,
+body,
+#map {
+  width: 100%;
+  height: 85%;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-done {
+    width: 80%;
+    height: 5%;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.btn-good {
+    background-color: #4CAF50; /* Green */
+    width: 40%;
+    height: 5%;
+    margin: 1%  0;
+}
+
+.btn-bad {
+    background-color: #f44336; /* Red */ 
+    width: 40%;
+    height: 5%;
+    margin: 1%  0;
+}
+#container{
+    text-align: center;
+}

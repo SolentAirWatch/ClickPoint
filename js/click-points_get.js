@@ -11,11 +11,18 @@ var osmUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=
 
 var thisMark = 'good';
 var markCol = 'green';
-var map = L.map('map').setView([50.9165078, -1.4311083], 12).addLayer(osm);
+var map = L.map('map').setView([50.9165078, -1.4311083], 1).addLayer(osm);
 var reason;
 
-
 console.log(data)
+
+// L.marker([data[0].LATITUDE, data[0].LONGDITUTE]).addTo(map);
+
+// Add the data already in the database
+for (var i = 0; i < data.length; i++)
+{
+    L.marker([data[i].LATITUDE, data[i].LONGDITUTE]).addTo(map);
+}
 
 
 // initialize the map on the "map" div with a given center and zoom
@@ -24,29 +31,62 @@ console.log(data)
 // attaching function on map click
 map.on('click', onMapClick);
 
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties && feature.properties.popupContent) {
+        layer.bindPopup(feature.properties.popupContent);
+    }
+}
+
+var geojsonFeature = {
+    "type": "Feature",
+    "properties": {
+        "name": "Coors Field",
+        "amenity": "Baseball Stadium",
+        "popupContent": "This is where the Rockies play!"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-104.99404, 39.75621]
+    }
+};
+
+L.geoJSON(geojsonFeature, {
+    onEachFeature: onEachFeature
+}).addTo(map);
+
+
+
+
+
 
 // Script for adding marker on map click
 function onMapClick(e) {
     
     var marker;
+    reason = prompt("Why did you pick this " + thisMark + " point?");
+
     var geojsonFeature = {
         "type": "Feature",
         "properties": {
             "cat": thisMark,
-            "reason": reason
+            "popupContent": reason
         },
         "geometry": {
             "type": "Point",
             "coordinates": [e.latlng.lat, e.latlng.lng]
         }
     };
-                
+
+    // ask the user why they picked this point
+
     
     L.geoJson(geojsonFeature, {
         pointToLayer: function (feature, latlng) {
             marker = L.marker(e.latlng, {
                 icon: L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: markCol}),
-                title: "Resource Location",
+                title: reason,
+                popupContent: reason,
                 alt: "Resource Location",
                 riseOnHover: true,
                 draggable: true
@@ -56,8 +96,7 @@ function onMapClick(e) {
         }
     }).addTo(map);
 
-    // ask the user why they picked this point
-    reason = prompt("Why did you pick this " + thisMark + " point?");
+
 }
 
 

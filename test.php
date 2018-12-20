@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+<?php
+    include_once 'includes/dbh.inc.php';
+?>
 
 <html>
 <head>
-
-<title>Solent Air Watch Test Map</title>
-
+    
+    <title> Simple script to collect GeoJSON form SQL </title>
     <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
     <link rel="stylesheet" type ="text/css" href="css/click-points.css"/> 
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -14,9 +15,40 @@
     <script src="js/jquery.js"></script>
     
 </head>
+<body>
 
-    <body>
-        <h1>
+<?php
+    $conn = mysqli_connect($dbServername,$dbUsername, $dbPassword,$dbName);
+
+    
+    $sql = "SELECT * FROM geoData;";
+    $result = mysqli_query($conn,$sql);
+    $resultCheck = mysqli_num_rows($result);
+
+    echo $resultCheck;
+
+    if($resultCheck > 0){
+        while ($rows = mysqli_fetch_array($result)){
+            echo $rows;
+        }
+    }
+    else{
+        echo "didn't get any data";
+    }
+    echo $rows
+?>
+
+
+<script type="text/javascript">
+// boolean outputs "" if false, "1" if true
+        var data = JSON.parse( '<?php echo json_encode($rows); ?> ' ); 
+        console.log(data)
+</script>
+
+
+
+    
+    <h1>
             Click the map to add points
         </h1>
         <p>
@@ -37,6 +69,12 @@
             </div>
         </div>
 
+
         <script src="js/click-points.js"></script>
         <script src="js/leaflet.awesome-markers.min.js"></script>
-    </body>
+    
+    
+  
+    
+</body>
+</html>
