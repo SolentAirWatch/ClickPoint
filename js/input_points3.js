@@ -29,9 +29,7 @@ var overlays = {
     "Bad Air": badPoints
 };
 
-
-// <label class="radio-inline"> \
-    
+// define the form for the pop-up    
 var popupForm = '<form id="popup-form" class="form-container"> \
                 <h2>Add a point:</h2>\
                 <strong> The air quality here is: </strong> <br> \
@@ -99,7 +97,8 @@ function onMapClick(e) {
     
         L.geoJson(newFeature, {
             pointToLayer: function (feature, latlng) {
-                var marker = L.marker(newFeature.geometry.coordinates, userIcon).bindPopup(popupForm);
+                var marker = L.marker(newFeature.geometry.coordinates, userIcon).bindPopup(
+                    popupForm,{closeButton: false});
                 marker.on("popupopen", onPopupFormOpen);
                 return marker;
                 marker.openPopup();
@@ -109,17 +108,23 @@ function onMapClick(e) {
     
 
 // Function to send the users point to php via ajax and onto database
-function saveMapPoint(newPoint) {
+function savePoints(newPoints) {
     console.log('debug: inside save function');
-    $.post("savePoints.php", {
-        NAME: newPoint["name"],
-        LATITUDE: String(newPoint.coordinates[0]),
-        LONGDITUTE: String(newPoint.coordinates[1]),
-        type: newPoint["type"],
-        reason: newPoint["reason"]    
-    }).done(function() {
-        alert( "success" );
-    });
+    
+    for (var i = 0; i < newPoints.length; i++) {
+        
+        $.post("savePoints.php", {
+            NAME: newPoints[i].properties.name,
+            LATITUDE: newPoints[i].geometry.coordinates[1],
+            LONGDITUTE: newPoints[i].geometry.coordinates[0],
+            TYPE: newPoints[i].properties.type,
+            REASON: newPoints[i].properties.reason,
+            IMPROVEMENT: newPoints[i].properties.improvement
+        }).done(function() {
+            console.log("saved point " + toString(i))
+        });
+    }
+    alert( "success");
 }
 
 function validateForm() {
@@ -179,12 +184,11 @@ function getAllMarkers() {
         //console.log(map._layers)
         if (map._layers[ml].feature) {
             allMarkersObjArray.push(this);
-            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()));
+            allMarkersGeoJsonArray.push(this.toGeoJSON());
         }
     });
-    
-    console.log(allMarkersObjArray);
-    alert("total Markers : " + allMarkersGeoJsonArray.length + "\n\n" + allMarkersGeoJsonArray + "\n\n Also see your console for object view of this array");
+    savePoints(allMarkersGeoJsonArray);
+
 }
 
 // Add the data already in the database
@@ -208,3 +212,8 @@ for (var i = 0; i < data.length; i++) {
 L.control.layers(baseLayers, overlays).addTo(map);
 map.on('click', onMapClick);                // attach function for map click event 
 $(".btn-done").on("click", getAllMarkers);
+
+
+$.validate({
+    lang: 'en'
+});
