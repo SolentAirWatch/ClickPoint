@@ -26,7 +26,7 @@
     if(! $conn ){
         die('Could not connect: ' . mysqli_error());
     }
-    echo 'Connected successfully' . "<br>";
+    // echo 'Connected successfully' . "<br>";
     $sql = 'SELECT * FROM geoData';
 
     $result = mysqli_query($conn, $sql);
@@ -69,6 +69,6 @@
         </div>
 
 
-        <script src="js/input_points3.js"></script>
+        <script src="js/inputPoints.js"></script>
 </body>
 </html>

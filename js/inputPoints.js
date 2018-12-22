@@ -30,23 +30,23 @@ var overlays = {
 };
 
 // define the form for the pop-up    
-var popupForm = '<form id="popup-form" class="form-container"> \
+var popupForm = '<form id="popup-form" action="" class="form-container"> \
                 <h2>Add a point:</h2>\
                 <strong> The air quality here is: </strong> <br> \
                 <fieldset> \
                 <label class="radio-inline"> \
-                <input type="radio" class="radio" name="goodBad" value = "good" id="good">Good \
+                <input type="radio" class="radio" name="goodBad" value = "good" id="good" required>Good \
                 </label> \
                 <label class="radio-inline"> \
-                <input type="radio" class="radio" name="goodBad" value = "bad" id="bad">Bad \
+                <input type="radio" class="radio" name="goodBad" value = "bad" id="bad" required>Bad \
                 </label> <br> \
-                </fieldset> \
+                </fieldset> <br>\
                 <label for="location"><b>Location Name</b></label> \
-                <input type="text" placeholder="eg. Redbridge flyover" id="locName" > \
-                <label for="reason"><b>Why are you adding this point? - be specific!</b></label> \
-                <input type="text" placeholder="eg. There is a traffic jam every saturday 11am" id="reason" > \
+                <input type="text" placeholder="eg. Redbridge flyover" id="locName" maxlength="250" required> \
+                <label for="reason"><b>Why are you adding this point? - try to be specific</b></label><br> \
+                <textarea rows="4" placeholder="eg. There is a traffic jam every saturday 11am" class="textarea" id="reason" maxlength="250" required> </textarea>\
                 <label for="solution"><b>How would you improve air quality at this location? (If you ran the city)</b></label> \
-                <input type="text" placeholder="eg. I\'d close the road when when school starts and stops" id="improvement"> \
+                <textarea rows="4" placeholder="eg. I\'d close the road when when school starts and stops" id="improvement" maxlength="250" class="textarea" required> </textarea> \
                 <button type="button" id="btn-submit" class="btn">Save</button> \
                 <button type="button" id="btn-delete" class="btn">Delete</button> \
             </form>';
@@ -60,6 +60,25 @@ userIcon = {
     riseOnHover: true,
     draggable: true
     };
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = ["Good", "Bad "],
+        labels = ["images/greenMarker.png","images/redMarker.png"];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            grades[i] + (" <img src="+ labels[i] +" height='40' width='30'>") +'<br>';
+    }
+    return div;
+};
+
+legend.addTo(map);
+
 
 var greenMarker =  L.AwesomeMarkers.icon({
     icon: 'info',
@@ -98,7 +117,8 @@ function onMapClick(e) {
         L.geoJson(newFeature, {
             pointToLayer: function (feature, latlng) {
                 var marker = L.marker(newFeature.geometry.coordinates, userIcon).bindPopup(
-                    popupForm,{closeButton: false});
+                    popupForm,{closeButton: false, 
+                               minWidth:400});
                 marker.on("popupopen", onPopupFormOpen);
                 return marker;
                 marker.openPopup();
@@ -124,7 +144,7 @@ function savePoints(newPoints) {
             console.log("saved point " + toString(i))
         });
     }
-    alert( "success");
+    window.location.href = 'sucess.html';
 }
 
 function validateForm() {
@@ -170,6 +190,7 @@ function onPopupFormOpen() {
     });
     
     console.log(tempMarkerGeoJSON);
+
 }
 
 
