@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    
+
     <title> Solent Air Watch - Community Map</title>
     <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -20,6 +20,32 @@
 
 </head>
 <body>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-hea der">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Pre-release test site</h4>
+      </div>
+      <div class="modal-body">
+          <p>If you were not expecting to take part in testing, you are lost!</p>
+          <h5>Known Issues</h5>
+          <ul>
+              <li>A pop up should show when you click on the map. Please click on the new marker to open it</li>
+              <li>When clicking between new (blue) markers the pop-up content doesn't load, click the save and cancel buttons instead</li>
+          </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <?php
     $conn = mysqli_connect($dbServername,$dbUsername, $dbPassword, $dbName);
@@ -37,26 +63,26 @@
         }
     } else {
         echo "0 results";
-    } 
+    }
     mysqli_close($conn);
 ?>
 
 <!-- Output the result to javaScript  -->
 <script type="text/javascript">
-    var data = <?= json_encode($rows); ?>;     
-</script>        
+    var data = <?= json_encode($rows); ?>;
+</script>
     <p>
         <div id="map" data-mode="">
             <input type="hidden" data-map-markers="" value="" name="map-geojson-data" />
         </div>
     </p>
 
-    <p>Click the map to add a new marker. Details about the marker can be edited by clicking the marker. Make sure you click the done button below!!</p>
+    <p> Details about the marker can be viewed or edited by clicking the marker. Click the map to add a new marker. Make sure you click the done button below!!</p>
     <p>
-        <b>Alpha Testing</b> If you are a developer please help us by logging issues on our github.
+        <b>Alpha Testing</b> If you are a developer please help us by logging issues on <a href="https://github.com/SolentAirWatch/ClickPoint"> the github</a>.
         <b>Please note: </b> Contributions will be reviewed and those not meeting our community guidelines will be removed. By contributing you allow us to store your data. Your contribution is anonymous but you can separately join our mailing list. Please read our privacy policy for more details.
-        
-    </p> 
+
+    </p>
 
     <div id="container">
         <div>

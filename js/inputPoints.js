@@ -8,7 +8,6 @@ var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStree
 var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
     streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
 
-
 // initialize the map on the "map" div with a given center and zoom
 var map = L.map('map', {
     center: [50.9113644,-1.4228106], // southampton
@@ -51,7 +50,7 @@ var popupForm = '<form id="popup-form" action="" class="form-container"> \
                 <button type="button" id="btn-delete" class="btn btn-secondary">Delete</button> \
             </form>';
 
-// class="btn"
+
 userIcon = {
     icon: L.AwesomeMarkers.icon({
         icon: 'info', 
@@ -90,9 +89,7 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
-
-
-// Script for adding marker on map click
+// Script for adding markers when the user clicks on the map.
 function onMapClick(e) {
 //    var popup = L.popup({
 //        closeButton: true})
@@ -127,7 +124,6 @@ function onMapClick(e) {
             }
         }).addTo(map);
 }
-    
 
 // Function to send the users point to php via ajax and onto database
 function savePoints(newPoints) {
@@ -146,17 +142,16 @@ function savePoints(newPoints) {
             console.log("saved point " + toString(i))
         });
     }
-        window.location.href = 'sucess.html';
+        window.location.href = 'https://goo.gl/forms/HH0FBEK5O6kEMWeQ2';
 }
 
-
+// inline validation of fields
 function validateForm() {
     if (x == "") {
         alert("fields cannot be empty")
         return false;
     }
 }
-
 
 // Function to handle delete as well as other events on marker popup open
 function onPopupFormOpen() {
@@ -197,7 +192,6 @@ function onPopupFormOpen() {
     console.log(tempMarkerGeoJSON);
 
 }
-
 
 // getting all the markers at once
 function getAllMarkers() {
@@ -245,6 +239,8 @@ L.control.layers(baseLayers, overlays).addTo(map);
 map.on('click', onMapClick);                // attach function for map click event 
 $(".btn-done").on("click", getAllMarkers);
 
+// show popup on page load
+$("#myModal").modal()
 
 $.validate({
     lang: 'en'
