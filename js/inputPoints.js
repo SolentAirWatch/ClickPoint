@@ -11,9 +11,8 @@ var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
 
 // initialize the map on the "map" div with a given center and zoom
 var map = L.map('map', {
-    center: [50.9137997,-1.4705325], // southampton
-    zoom: 10,
-    // zoom: 6,
+    center: [50.9113644,-1.4228106], // southampton
+    zoom: 13,
     layers: [streets, goodPoints, badPoints]
 });
 
@@ -31,26 +30,28 @@ var overlays = {
 
 // define the form for the pop-up    
 var popupForm = '<form id="popup-form" action="" class="form-container"> \
-                <h2>Add a point:</h2>\
+                <h2>Add a marker:</h2>\
                 <strong> The air quality here is: </strong> <br> \
-                <fieldset> \
-                <label class="radio-inline"> \
-                <input type="radio" class="radio" name="goodBad" value = "good" id="good" required>Good \
-                </label> \
-                <label class="radio-inline"> \
-                <input type="radio" class="radio" name="goodBad" value = "bad" id="bad" required>Bad \
-                </label> <br> \
-                </fieldset> <br>\
-                <label for="location"><b>Location Name</b></label> \
+                <div id="goodBad" class="btn-group btn-group-toggle" role="group" data-toggle="buttons"> \
+                  <label class="btn btn-outline-success labGoodBad" id="labGood"> \
+                    <input type="radio" name="pointType" id="good" value = "good" autocomplete="off" required> Good \
+                  </label> \
+                  <label class="btn btn-outline-danger labGoodBad" id="labBad"> \
+                    <input type="radio" name="pointType" id="bad" value = "bad" autocomplete="off" required> Bad \
+                  </label> \
+                </div> \
+                <br> \
+                <label for="locName"><b>Location Name</b></label> \
                 <input type="text" placeholder="eg. Redbridge flyover" id="locName" maxlength="250" required> \
                 <label for="reason"><b>Why are you adding this point? - try to be specific</b></label><br> \
                 <textarea rows="4" placeholder="eg. There is a traffic jam every saturday 11am" class="textarea" id="reason" maxlength="250" required> </textarea>\
                 <label for="solution"><b>How would you improve air quality at this location? (If you ran the city)</b></label> \
                 <textarea rows="4" placeholder="eg. I\'d close the road when when school starts and stops" id="improvement" maxlength="250" class="textarea" required> </textarea> \
-                <button type="button" id="btn-submit" class="btn">Save</button> \
-                <button type="button" id="btn-delete" class="btn">Delete</button> \
+                <button type="button" id="btn-submit" class="btn btn-primary" >Save</button> \
+                <button type="button" id="btn-delete" class="btn btn-secondary">Delete</button> \
             </form>';
 
+// class="btn"
 userIcon = {
     icon: L.AwesomeMarkers.icon({
         icon: 'info', 
@@ -60,6 +61,16 @@ userIcon = {
     riseOnHover: true,
     draggable: true
     };
+
+var greenMarker =  L.AwesomeMarkers.icon({
+    icon: 'info',
+    markerColor: "green"
+});
+
+var redMarker =  L.AwesomeMarkers.icon({
+    icon: 'info',
+    markerColor: "red"
+});
 
 var legend = L.control({position: 'bottomright'});
 
@@ -80,15 +91,6 @@ legend.onAdd = function (map) {
 legend.addTo(map);
 
 
-var greenMarker =  L.AwesomeMarkers.icon({
-    icon: 'info',
-    markerColor: "green"
-});
-
-var redMarker =  L.AwesomeMarkers.icon({
-    icon: 'info',
-    markerColor: "red"
-});
 
 // Script for adding marker on map click
 function onMapClick(e) {
@@ -144,8 +146,9 @@ function savePoints(newPoints) {
             console.log("saved point " + toString(i))
         });
     }
-    window.location.href = 'sucess.html';
+        window.location.href = 'sucess.html';
 }
+
 
 function validateForm() {
     if (x == "") {
@@ -153,6 +156,7 @@ function validateForm() {
         return false;
     }
 }
+
 
 // Function to handle delete as well as other events on marker popup open
 function onPopupFormOpen() {
@@ -170,6 +174,7 @@ function onPopupFormOpen() {
             $("#bad").prop("checked", true);
             break;    
     }
+    $(':input:checked').parent('.btn').addClass('active');
     
     $("#locName").val(tempMarkerGeoJSON.properties.name);
     $("#reason").val(tempMarkerGeoJSON.properties.reason);
@@ -178,7 +183,7 @@ function onPopupFormOpen() {
     $("#btn-submit").on("click", onPointSubmit);
     
     function onPointSubmit () {
-        tempMarkerGeoJSON.properties.type = $("input[name='goodBad']:checked").val();
+        tempMarkerGeoJSON.properties.type = $("input[name='pointType']:checked").val();
         tempMarkerGeoJSON.properties.name = $("#locName").val();
         tempMarkerGeoJSON.properties.reason = $("#reason").val();
         tempMarkerGeoJSON.properties.improvement = $("#improvement").val();
@@ -214,18 +219,24 @@ function getAllMarkers() {
 
 // Add the data already in the database
 for (var i = 0; i < data.length; i++) {
+    popUpContent =  '<h4>' + data[i].NAME + '</h4> \
+                    <h6> Reason for ' + data[i].type + ' air: </h6> \
+                    <p>' + data[i].reason + '</p> \
+                    <h6> Suggested improvement: </h6> \
+                    <p>' + data[i].improvement + '</p>'
+        
     switch (data[i].type) {
         case 'good':
             L.marker([data[i].LATITUDE, data[i].LONGDITUTE], {
                 icon: greenMarker,
                 riseOnHover: true
-            }).bindPopup(data[i].reason).addTo(goodPoints);
+            }).bindPopup(popUpContent).addTo(goodPoints);
             break;
         case 'bad':
             L.marker([data[i].LATITUDE, data[i].LONGDITUTE], {
                 icon: redMarker,
                 riseOnHover: true                
-            }).bindPopup(data[i].reason).addTo(badPoints);
+            }).bindPopup(popUpContent).addTo(badPoints);
             break;
     }
 }
