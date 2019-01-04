@@ -138,7 +138,7 @@ function savePoints(newPoints) {
         $.post("savePoints.php", {
             NAME: newPoints[i].properties.name,
             LATITUDE: newPoints[i].geometry.coordinates[1],
-            LONGDITUTE: newPoints[i].geometry.coordinates[0],
+            LONGITUDE: newPoints[i].geometry.coordinates[0],
             TYPE: newPoints[i].properties.type,
             REASON: newPoints[i].properties.reason,
             IMPROVEMENT: newPoints[i].properties.improvement
@@ -227,13 +227,13 @@ for (var i = 0; i < data.length; i++) {
         
     switch (data[i].type) {
         case 'good':
-            L.marker([data[i].LATITUDE, data[i].LONGDITUTE], {
+            L.marker([data[i].LATITUDE, data[i].LONGITUDE], {
                 icon: greenMarker,
                 riseOnHover: true
             }).bindPopup(popUpContent).addTo(goodPoints);
             break;
         case 'bad':
-            L.marker([data[i].LATITUDE, data[i].LONGDITUTE], {
+            L.marker([data[i].LATITUDE, data[i].LONGITUDE], {
                 icon: redMarker,
                 riseOnHover: true                
             }).bindPopup(popUpContent).addTo(badPoints);

@@ -7,7 +7,6 @@
     
     <title> Solent Air Watch - Community Map</title>
     <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
-
     <link href="css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="css/leaflet.awesome-markers.css">
     <link rel="stylesheet"  type="text/css" href="css/inputPoints.css" />
@@ -54,7 +53,9 @@
 
     <p>Click the map to add a new marker. Details about the marker can be edited by clicking the marker. Make sure you click the done button below!!</p>
     <p>
-        <b>Please note: </b> Contributions will be reviewed and those not meeting our community guidelines will be removed. By contributing you allow us to store your data. Your contribution is annonomous but you can serperatly join our mailing list. Please read our privacy policy for more details.
+        <b>Alpha Testing</b> If you are a developer please help us by logging issues on our github.
+        <b>Please note: </b> Contributions will be reviewed and those not meeting our community guidelines will be removed. By contributing you allow us to store your data. Your contribution is anonymous but you can separately join our mailing list. Please read our privacy policy for more details.
+        
     </p> 
 
     <div id="container">

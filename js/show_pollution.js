@@ -45,19 +45,19 @@ var redMarker =  L.AwesomeMarkers.icon({
     markerColor: "red"
 });
 
-// L.marker([data[0].LATITUDE, data[0].LONGDITUTE]).addTo(map);
+// L.marker([data[0].LATITUDE, data[0].LONGITUDE]).addTo(map);
 
 // Add the data already in the database
 for (var i = 0; i < data.length; i++) {
     switch (data[i].type) {
         case 'good':
-            L.marker([data[i].LATITUDE, data[i].LONGDITUTE], {
+            L.marker([data[i].LATITUDE, data[i].LONGITUDE], {
                 icon: greenMarker,
                 riseOnHover: true
             }).bindPopup(data[i].reason).addTo(goodPoints);
             break;
         case 'bad':
-            L.marker([data[i].LATITUDE, data[i].LONGDITUTE], {
+            L.marker([data[i].LATITUDE, data[i].LONGITUDE], {
                 icon: redMarker,
                 riseOnHover: true                
             }).bindPopup(data[i].reason).addTo(badPoints);
