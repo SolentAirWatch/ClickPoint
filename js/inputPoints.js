@@ -143,7 +143,7 @@ function savePoints(newPoints) {
             console.log("saved point " + toString(i))
         });
     }
-//        window.location.href = 'https://goo.gl/forms/HH0FBEK5O6kEMWeQ2';
+        window.location.href = 'https://goo.gl/forms/HH0FBEK5O6kEMWeQ2';
 }
 
 // inline validation of fields
