@@ -5,7 +5,7 @@
 <html>
 <head>
 
-    <title> Solent Air Watch - Community Map</title>
+    <title> Air Watch - Community Map</title>
     <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
     <link href="css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="css/leaflet.awesome-markers.css">
@@ -29,14 +29,17 @@
     <div class="modal-content">
       <div class="modal-hea der">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Pre-release test site</h4>
+        <h4 class="modal-title">Contribute knowledge</h4>
       </div>
       <div class="modal-body">
-          <p>If you were not expecting to take part in testing, you are lost!</p>
-          <h5>Known Issues</h5>
+          <p>By contributing to our map, you give concent for the data to be stored, publically shared and used for research. You will be asked to answer an optional survey following your contribution. </p>
+          <p>We do not record any personally identifiable information. </p>
+          <h5>How to contribute</h5>
           <ul>
-              <li>A pop up should show when you click on the map. Please click on the new marker to open it</li>
-              <li>When clicking between new (blue) markers the pop-up content doesn't load, click the save and cancel buttons instead</li>
+              <li>Click anywhere on the map to make a new points</li>
+              <li>Click your new point</li>
+              <li>Fill in the form in the popup </li>
+              <li>Repeat as many times as you like</li>
           </ul>
       </div>
       <div class="modal-footer">
@@ -77,11 +80,9 @@
         </div>
     </p>
 
-    <p> Details about the marker can be viewed or edited by clicking the marker. Click the map to add a new marker. Make sure you click the done button below!!</p>
+    <p>Click anywhere on the map to contribute a point, then click your new point to share your knowledge. You can view other contributions by clicking markers. <strong> Make sure you click the done button below!! </strong></p>
     <p>
-        <b>Alpha Testing</b> If you are a developer please help us by logging issues on <a href="https://github.com/SolentAirWatch/ClickPoint"> the github</a>.
-        <b>Please note: </b> Contributions will be reviewed and those not meeting our community guidelines will be removed. By contributing you allow us to store your data. Your contribution is anonymous but you can separately join our mailing list. Please read our privacy policy for more details.
-
+        <b>Please note: </b> Contributions will be reviewed and those which are incomprehensible, offensive or blame individuals will be removed. By contributing you concent for us to store and share the data your commit with the public (freely) and it may be used for furture research. Your contribution is anonymous but you can separately join our mailing list.
     </p>
 
     <div id="container">

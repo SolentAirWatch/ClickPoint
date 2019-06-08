@@ -10,8 +10,9 @@ var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
 
 // initialize the map on the "map" div with a given center and zoom
 var map = L.map('map', {
-    center: [50.9113644,-1.4228106], // southampton
-    zoom: 13,
+//    center: [50.9113644,-1.4228106], // southampton
+    center: [51.454,-2.601092], // Bristol
+    zoom: 14,
     layers: [streets, goodPoints, badPoints]
 });
 
@@ -142,7 +143,7 @@ function savePoints(newPoints) {
             console.log("saved point " + toString(i))
         });
     }
-        window.location.href = 'https://goo.gl/forms/HH0FBEK5O6kEMWeQ2';
+//        window.location.href = 'https://goo.gl/forms/HH0FBEK5O6kEMWeQ2';
 }
 
 // inline validation of fields
